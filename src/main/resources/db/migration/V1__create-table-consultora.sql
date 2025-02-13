@@ -18,7 +18,7 @@ CREATE TABLE consultora (
     situacao VARCHAR(100),
     pontos_faltantes INTEGER,
     ciclos_restantes INTEGER,
-    debito INTEGER,
+    debito VARCHAR(100),
     espaco_aberto BOOLEAN,
     espaco_com_vendas BOOLEAN,
     origem VARCHAR(100)

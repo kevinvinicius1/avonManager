@@ -33,7 +33,7 @@ public class Consultora {
     private String situacao;
     private Integer pontosFaltantes;
     private Integer ciclosRestantes;
-    private Integer debito;
+    private String debito;
     private Boolean espacoAberto;
     private Boolean espacoComVendas;
     private String origem;
