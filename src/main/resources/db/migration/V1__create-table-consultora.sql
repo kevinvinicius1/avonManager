@@ -1,0 +1,25 @@
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+CREATE TABLE consultora (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    codigo BIGINT,
+    nome VARCHAR(255),
+    contatos VARCHAR(255),
+    email VARCHAR(255),
+    endereco_residencial VARCHAR(255),
+    bairro VARCHAR(255),
+    cidade VARCHAR(255),
+    cep VARCHAR(20),
+    grupo_lider INTEGER,
+    credito INTEGER,
+    credito_disponivel INTEGER,
+    pontos_acumulados INTEGER,
+    cn_iniciante VARCHAR(100),
+    nivel VARCHAR(100),
+    situacao VARCHAR(100),
+    pontos_faltantes INTEGER,
+    ciclos_restantes INTEGER,
+    debito INTEGER,
+    espaco_aberto BOOLEAN,
+    espaco_com_vendas BOOLEAN,
+    origem VARCHAR(100)
+);

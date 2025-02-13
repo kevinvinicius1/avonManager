@@ -34,7 +34,7 @@ public class Consultora {
     private Integer pontosFaltantes;
     private Integer ciclosRestantes;
     private Integer debito;
-    private String espacoAberto;
-    private String espacoComVendas;
+    private Boolean espacoAberto;
+    private Boolean espacoComVendas;
     private String origem;
 }
