@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.lang3.StringUtils;
 import java.io.BufferedReader;
@@ -19,6 +21,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 
 @Service
@@ -37,7 +40,39 @@ public class ConsultoraService {
                 consultora.getOrigem())).stream().toList();
     }
 
+    public Consultora updateConsultora(ConsultoraRequestDTO data, Long toUpdate) {
+        Consultora existingConsultora = repository.getByCodigo(toUpdate);
+        existingConsultora.setCodigo(data.codigo());
+        existingConsultora.setContatos(data.contatos());
+        existingConsultora.setNome(data.nome());
+        existingConsultora.setEmail(data.email());
+        existingConsultora.setEnderecoResidencial(data.enderecoResidencial());
+        existingConsultora.setBairro(data.bairro());
+        existingConsultora.setCidade(data.cidade());
+        existingConsultora.setCep(data.cep());
+        existingConsultora.setGrupoLider(data.grupoLider());
+        existingConsultora.setCredito(data.credito());
+        existingConsultora.setCreditoDisponivel(data.creditoDisponivel());
+        existingConsultora.setPontosAcumulados(data.pontosAcumulados());
+        existingConsultora.setCnIniciante(data.cnIniciante());
+        existingConsultora.setNivel(data.nivel());
+        existingConsultora.setSituacao(data.situacao());
+        existingConsultora.setEspacoAberto(data.espacoAberto());
+        existingConsultora.setPontosFaltantes(data.pontosFaltantes());
+        existingConsultora.setCiclosRestantes(data.ciclosRestantes());
+        existingConsultora.setDebito(StringUtils.isNotBlank(data.debito()) ? data.debito() : null);
+        existingConsultora.setEspacoComVendas(data.espacoComVendas());
+        existingConsultora.setOrigem(data.origem());
+        return repository.save(existingConsultora);
+
+
+        
+    }
+    
+
+    @ExceptionHandler
     public Consultora createConsultora(ConsultoraRequestDTO data) {
+             //Cadastra uma nova consultora
         Consultora newConsultora = new Consultora();
 
         newConsultora.setCodigo(data.codigo());
@@ -135,6 +170,7 @@ public class ConsultoraService {
         value = value.trim();
         return value.isEmpty() ? null : Boolean.valueOf(value);
     }
+
 }
 
 
