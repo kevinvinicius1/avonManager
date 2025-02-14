@@ -63,7 +63,6 @@
 
 
 
-
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
@@ -109,7 +108,7 @@
 	</dependencies>
 
 	<build>
-		<plugins>
+				<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

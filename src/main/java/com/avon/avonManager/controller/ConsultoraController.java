@@ -27,8 +27,8 @@ public class ConsultoraController {
     private ConsultoraRepository repository;
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Consultora> create(@RequestBody ConsultoraRequestDTO consultoraRequestDTO){
-        Consultora newConsultora = this.consultoraService.createConsultora(consultoraRequestDTO);
+    public ResponseEntity<Consultora> create(@RequestBody ConsultoraRequestDTO data){
+        Consultora newConsultora = this.consultoraService.createConsultora(data);
         return ResponseEntity.ok(newConsultora);
     }
 
@@ -37,12 +37,13 @@ public class ConsultoraController {
         Consultora existingConsultora = repository.getByCodigo(data.codigo());
 
         Map<String, Object> response = new HashMap<>();
-
+        //caso existir consultora irá executar
         if (existingConsultora != null) {
             response.put("dadosAntigos", existingConsultora);
             response.put("dadosNovos", data);
             return ResponseEntity.status(HttpStatusCode.valueOf(409)).body(response);
         }
+        //Cria nova consultora caso não exista
         Consultora newConsultora = this.consultoraService.createConsultora(data);
         response.put("novaConsultora", data);
         return ResponseEntity.ok(response);
@@ -50,6 +51,8 @@ public class ConsultoraController {
 
     @PutMapping("/update")
     public ResponseEntity<?> update(@RequestBody Map<String, Object> data){
+        //verifica se tem os valores dadosNovos e dadosAntigos no map
+
         if (!data.containsKey("dadosNovos")) {
             return ResponseEntity.badRequest().body(Map.of("erro", "O campo 'dadosNovos' é obrigatório."));
         }
@@ -59,6 +62,8 @@ public class ConsultoraController {
       //obtendo código da revendedora no sistema
         Map <String, Object> dadosAntigos = (Map<String, Object>) data.get("dadosAntigos");
         Long toUpdate = ((Number) dadosAntigos.get("codigo")).longValue();
+
+        //converte o map dadosNovos para ConsultoraRequestDTO
         ObjectMapper objectMapper = new ObjectMapper();
         ConsultoraRequestDTO dadosNovos = objectMapper.convertValue(data.get("dadosNovos"), ConsultoraRequestDTO.class);
         consultoraService.updateConsultora(dadosNovos, toUpdate);

@@ -110,8 +110,6 @@ public class ConsultoraService {
                      .withIgnoreEmptyLines()   // Ignora linhas vazias
                      .withFirstRecordAsHeader() // Descomente se o CSV possuir cabeçalho
              )) {
-
-
             for (CSVRecord record : csvParser) {
 
 
